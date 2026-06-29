@@ -1,4 +1,4 @@
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/react"
 import { LanguageProvider } from './context/LanguageContext'
 import CustomCursor from './components/CustomCursor'
 import Navbar from './components/Navbar'
