@@ -9,6 +9,7 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 
   body {
@@ -17,6 +18,7 @@
     background: #09090B;
     color: #0a0a0a;
     cursor: none;
+    overflow-x: hidden;
   }
 
   #root {

@@ -3,6 +3,13 @@ import { motion, useInView } from 'framer-motion'
 import { ArrowRight, MoveRight, Sparkles, ExternalLink, Zap } from 'lucide-react'
 import { useLang } from '../context/LanguageContext'
 
+import marea from '../images/marea.png'
+import andres_mora_fotografo from '../images/andres_mora_fotografo.png'
+import dr_andres_vega from '../images/dr_andres_vega.png'
+import kolumbia from '../images/kolumbia.png'
+import maquipartes from '../images/maquipartes.png'
+import titan_gym from '../images/titan_gym.png'
+
 const TECH_TAGS = ['React', 'Framer Motion', 'Tailwind CSS']
 
 // ao(): ajusta la opacidad de un string rgba existente
@@ -27,8 +34,8 @@ const REAL_PROJECTS = [
     },
     accent: '#D4A943',
     glow: 'rgba(212,169,67,0.22)',
-    img: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80&fit=crop',
-    previewUrl: 'marea.co',
+    img: marea,
+    previewUrl: 'https://marea-sandy.vercel.app/',
     num: '01',
   },
   {
@@ -48,8 +55,8 @@ const REAL_PROJECTS = [
     },
     accent: '#F97316',
     glow: 'rgba(249,115,22,0.18)',
-    img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80&fit=crop',
-    previewUrl: 'titangym.co',
+    img: titan_gym,
+    previewUrl: 'https://titan-gym-nu.vercel.app/',
     num: '02',
   },
   {
@@ -69,8 +76,8 @@ const REAL_PROJECTS = [
     },
     accent: '#22D3EE',
     glow: 'rgba(34,211,238,0.15)',
-    img: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&q=80&fit=crop',
-    previewUrl: 'drvega.co',
+    img: dr_andres_vega,
+    previewUrl: 'https://dr-andres-vega-odontologo.vercel.app/',
     num: '03',
   },
   {
@@ -90,8 +97,8 @@ const REAL_PROJECTS = [
     },
     accent: '#4ADE80',
     glow: 'rgba(74,222,128,0.12)',
-    img: 'https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&q=80&fit=crop',
-    previewUrl: 'kolumbiatours.co',
+    img: kolumbia,
+    previewUrl: 'https://kolumbia-tours.vercel.app/',
     num: '04',
   },
   {
@@ -111,8 +118,8 @@ const REAL_PROJECTS = [
     },
     accent: '#C9A96E',
     glow: 'rgba(201,169,110,0.14)',
-    img: 'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=800&q=80&fit=crop',
-    previewUrl: 'andresmora.photo',
+    img: andres_mora_fotografo,
+    previewUrl: 'https://andres-mora-fotografo.vercel.app/',
     num: '05',
   },
   {
@@ -133,8 +140,8 @@ const REAL_PROJECTS = [
     },
     accent: '#FFC300',
     glow: 'rgba(255,195,0,0.16)',
-    img: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=900&q=80&fit=crop',
-    previewUrl: 'maquiparts.co',
+    img: maquipartes,
+    previewUrl: 'https://maquiparts.vercel.app/',
     num: '06',
   },
 ]
@@ -169,7 +176,7 @@ const BrowserMockup = ({ img, url, accent, imgRef }) => (
         <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.25)', fontFamily: 'monospace' }}>{url}</span>
       </div>
     </div>
-    <div style={{ overflow: 'hidden', position: 'relative', aspectRatio: '16/9' }}>
+    <div style={{ overflow: 'hidden', position: 'relative', aspectRatio: '16/9', background: '#0d0d0d' }}>
       <img
         ref={imgRef}
         src={img}
@@ -177,7 +184,7 @@ const BrowserMockup = ({ img, url, accent, imgRef }) => (
         loading="lazy"
         style={{
           width: '100%', height: '100%',
-          objectFit: 'cover', objectPosition: 'top',
+          objectFit: 'contain',
           display: 'block',
           transform: 'scale(1)',
           transition: 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)',
@@ -256,9 +263,16 @@ const FeaturedCard = ({ project, lang }) => {
         <div className="absolute top-0 left-0 right-0 h-64 pointer-events-none"
           style={{ background: `radial-gradient(ellipse at 40% 0%, ${ao(project.glow, 0.1)} 0%, transparent 65%)` }} />
 
-        <div className="relative grid lg:grid-cols-2">
-          {/* Info */}
-          <div className={`p-10 lg:p-14 flex flex-col justify-center ${project.reversed ? 'lg:order-2' : ''}`}>
+        <div className="relative grid grid-cols-1 lg:grid-cols-2">
+          {/* Browser mockup — order-1 mobile (arriba), order-last/first desktop según reversed */}
+          <div className={`p-5 pb-0 lg:p-12 flex items-center order-1 ${project.reversed ? 'lg:order-first' : 'lg:order-last'}`}>
+            <div className="w-full">
+              <BrowserMockup img={project.img} url={project.previewUrl} accent={project.accent} imgRef={imgRef} />
+            </div>
+          </div>
+
+          {/* Info — order-2 mobile (abajo), order-first/last desktop según reversed */}
+          <div className={`p-6 lg:p-14 flex flex-col justify-center order-2 ${project.reversed ? 'lg:order-last' : 'lg:order-first'}`}>
             <div className="flex flex-wrap items-center gap-3 mb-6">
               <span className="font-display font-black text-[10px] tracking-[0.28em] uppercase"
                 style={{ color: project.accent, opacity: 0.6 }}>
@@ -309,7 +323,7 @@ const FeaturedCard = ({ project, lang }) => {
 
             <a
               ref={btnRef}
-              href="#"
+              href={project.previewUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="self-start inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-sm font-bold"
@@ -323,13 +337,6 @@ const FeaturedCard = ({ project, lang }) => {
               <ExternalLink size={14} />
               {lang === 'es' ? 'Ver proyecto' : 'View project'}
             </a>
-          </div>
-
-          {/* Browser mockup */}
-          <div className={`p-8 lg:p-12 flex items-center ${project.reversed ? 'lg:order-1' : ''}`}>
-            <div className="w-full">
-              <BrowserMockup img={project.img} url={project.previewUrl} accent={project.accent} imgRef={imgRef} />
-            </div>
           </div>
         </div>
       </motion.div>
@@ -443,7 +450,7 @@ const ProjectCard = ({ project, lang, index }) => {
                 </span>
               ))}
             </div>
-            <a href="#" target="_blank" rel="noopener noreferrer"
+            <a href={project.previewUrl} target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-xs font-bold shrink-0 ml-3"
               style={{ color: project.accent }}>
               {lang === 'es' ? 'Ver' : 'View'}

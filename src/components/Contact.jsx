@@ -110,11 +110,11 @@ const Contact = () => {
       {/* Subtle top gradient border */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-zinc-200 to-transparent" />
 
-      <div ref={ref} className="max-w-6xl mx-auto px-6 lg:px-16">
+      <div ref={ref} className="max-w-6xl mx-auto px-6 lg:px-16 overflow-hidden">
         <div className="grid lg:grid-cols-2 gap-16 xl:gap-24 items-center">
 
           {/* ── LEFT: Text ── */}
-          <div>
+          <div className="min-w-0">
             <motion.span
               variants={revealUp} initial="hidden" animate={inView ? 'visible' : 'hidden'} custom={0}
               className="section-label" style={{ color: '#2563eb' }}
@@ -166,7 +166,7 @@ const Contact = () => {
           </div>
 
           {/* ── RIGHT: Contact links ── */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 min-w-0">
             {contactLinks.map((link, i) => {
               const isEmail = link.key === 'email'
               const copied = isEmail && emailCopied
@@ -181,7 +181,7 @@ const Contact = () => {
                 initial="hidden"
                 animate={inView ? 'visible' : 'hidden'}
                 custom={5 + i}
-                whileHover={{ x: copied ? 0 : 5, transition: { duration: 0.2 } }}
+                whileHover={{ y: copied ? 0 : -2, transition: { duration: 0.2 } }}
                 className="group relative flex items-center gap-5 p-5 rounded-2xl shadow-sm
                            transition-all duration-300 hover:shadow-md cursor-pointer"
                 style={{
