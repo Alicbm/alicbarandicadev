@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next"
 import { LanguageProvider } from './context/LanguageContext'
 import CustomCursor from './components/CustomCursor'
 import Navbar from './components/Navbar'
@@ -15,6 +16,7 @@ import CopyToast from './components/CopyToast'
 function App() {
   return (
     <LanguageProvider>
+      <Analytics/>
       <CopyToast />
       <CustomCursor />
       <Navbar />
